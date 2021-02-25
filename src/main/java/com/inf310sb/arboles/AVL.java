@@ -5,15 +5,12 @@
  */
 package com.inf310sb.arboles;
 
-/**
- *
- * @author harol
- */
+
 public class AVL <K extends Comparable<K>, V> extends ArbolBinarioBusqueda<K, V>{
     private static final byte DIFERENCIA_MAXIMA = 1;
     
     @Override
-    public void insertar(K claveAInsertar, V valorAInsertar) {
+    public void insertarRec(K claveAInsertar, V valorAInsertar) {
         if (claveAInsertar == null) {
             throw new IllegalArgumentException("Clave no puede ser nula");
         }
@@ -27,6 +24,7 @@ public class AVL <K extends Comparable<K>, V> extends ArbolBinarioBusqueda<K, V>
             this.raiz=nuevoNodo;
         } else{
             super.raiz = this.insertar(this.raiz,claveAInsertar,valorAInsertar);
+        
         }
     }
     
@@ -46,8 +44,10 @@ public class AVL <K extends Comparable<K>, V> extends ArbolBinarioBusqueda<K, V>
             NodoBinario<K,V> supuestoNuevoHIzquierdo = insertar(nodoActual.getHijoIzquierdo(),
                                     claveAInsertar,valorAInsertar);
             nodoActual.setHijoIzquierdo(supuestoNuevoHIzquierdo);
+            
             return this.balancear(nodoActual);
         }
+        
         //SI LLEGA ACA sig qu ele nodo actual esta la calve a insertar
         nodoActual.setValor(valorAInsertar);
         return nodoActual;       
@@ -55,7 +55,7 @@ public class AVL <K extends Comparable<K>, V> extends ArbolBinarioBusqueda<K, V>
     
     private NodoBinario<K, V> balancear(NodoBinario<K, V> nodoActual) {
         int alturaRamaIzq = altura(nodoActual.getHijoIzquierdo());
-        int alturaRamaDer = altura(nodoActual.getHijoIzquierdo());
+        int alturaRamaDer = altura(nodoActual.getHijoDerecho());
         int diferencia = alturaRamaIzq - alturaRamaDer;
         if (diferencia > DIFERENCIA_MAXIMA) {
             //balancear hacia izquierda
@@ -70,9 +70,9 @@ public class AVL <K extends Comparable<K>, V> extends ArbolBinarioBusqueda<K, V>
         } else if (diferencia < -DIFERENCIA_MAXIMA) {
             //balancear hacia derecha REALIZAR 
             NodoBinario<K, V> hijoDerecho = nodoActual.getHijoDerecho();
-            alturaRamaIzq = altura(hijoDerecho.getHijoDerecho());
+            alturaRamaIzq = altura(hijoDerecho.getHijoIzquierdo());
             alturaRamaDer = altura(hijoDerecho.getHijoDerecho());
-            if (alturaRamaDer > alturaRamaIzq) {
+            if (alturaRamaIzq > alturaRamaDer) {
                 return this.rotacionDobleAIzquierda(nodoActual);
             } else {
                 return this.rotacionSimpleAIzquierda(nodoActual);
@@ -85,29 +85,31 @@ public class AVL <K extends Comparable<K>, V> extends ArbolBinarioBusqueda<K, V>
     
     private NodoBinario<K,V> rotacionSimpleADerecha(NodoBinario<K,V> nodoActual){
         NodoBinario<K,V> nodoQueRota = nodoActual.getHijoIzquierdo();//nodoIzqu para balanceo
-        nodoActual.setHijoIzquierdo(nodoQueRota.getHijoIzquierdo());//actualizar punteroNodo
+        nodoActual.setHijoIzquierdo(nodoQueRota.getHijoDerecho());//actualizar punteroNodo
         nodoQueRota.setHijoDerecho(nodoActual);//rotacion hecha apunta a nodo actual
         return nodoQueRota;
     }
     //metodo falta completado
     private NodoBinario<K,V> rotacionSimpleAIzquierda(NodoBinario<K,V> nodoActual){
         NodoBinario<K,V> nodoQueRota = nodoActual.getHijoDerecho();//nodoDere para balanceo
-        nodoActual.setHijoDerecho(nodoQueRota.getHijoDerecho());//actualizar punteroNodo
+        nodoActual.setHijoDerecho(nodoQueRota.getHijoIzquierdo());//actualizar punteroNodo
         nodoQueRota.setHijoIzquierdo(nodoActual);//rotacion hecha apunta a nodo actual
         return nodoQueRota;
     }
   
     private NodoBinario<K,V> rotacionDobleADerecha(NodoBinario<K,V> nodoActual){
         //rotacion simple a izquierda luego rotacion a derecha
-        NodoBinario<K,V> nodoRotaAIzquierda = rotacionSimpleAIzquierda(nodoActual.getHijoIzquierdo());
-        nodoActual.setHijoIzquierdo(nodoRotaAIzquierda);
+        NodoBinario<K,V> nodoRotaAIzquierda = rotacionSimpleAIzquierda(nodoActual.getHijoDerecho());
+        nodoActual.setHijoDerecho(nodoRotaAIzquierda);
+
         return rotacionSimpleADerecha(nodoActual); 
     }
     
     private NodoBinario<K,V> rotacionDobleAIzquierda(NodoBinario<K,V> nodoActual){
         //rotacion simple a derecha luego rotacion a izquierda
-        nodoActual.setHijoDerecho(rotacionSimpleADerecha(nodoActual.getHijoDerecho()));
-        return rotacionSimpleAIzquierda(nodoActual); 
+        NodoBinario<K,V> nodoRotaAIzquierda= rotacionSimpleAIzquierda(nodoActual);
+        nodoActual.setHijoIzquierdo(rotacionSimpleADerecha(nodoActual.getHijoIzquierdo()));
+        return nodoRotaAIzquierda;
     }
    
     public V eliminar(K claveAEliminar) {
@@ -160,4 +162,6 @@ public class AVL <K extends Comparable<K>, V> extends ArbolBinarioBusqueda<K, V>
         nodoActual.setValor(nodoReemplazo.getValor());
         return nodoActual;
     }
+     
+      
 }

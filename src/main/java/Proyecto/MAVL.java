@@ -286,8 +286,8 @@ public class MAVL extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
      boolean arbolDeCero = true;
-    IArbolBusqueda<String, Integer> arbol;
-   
+    ArbolBinarioBusqueda<String, Integer> arbol= new AVL<>();
+    AVL<String, Integer> arbol2= new AVL<>();
     
     //listas en INORDEN
     List<String> listaKInOrden = new ArrayList<>(
@@ -330,11 +330,11 @@ public class MAVL extends javax.swing.JInternalFrame {
         String texto="";
         try {
             Scanner input = new Scanner(new File("/C:/UniSem2-2020/Programas ED2/Proyecto/ed2-master/arbol.txt"));
-             arbol = new AVL<>();
+             
             while (input.hasNextLine()) {
                 String line = input.nextLine();
                texto= texto + line + "\n";
-               insertarTodo(line);
+             //  insertarTodo(line);
                // texto= texto + line + "\n";
             }
             input.close();
@@ -355,7 +355,7 @@ public class MAVL extends javax.swing.JInternalFrame {
         jTextArea2.setText(p);
        
        arbol.insertar(clave, Integer.parseInt(valor));
-      
+       
     }
      
     
@@ -372,7 +372,7 @@ public class MAVL extends javax.swing.JInternalFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
             // TODO add your handling code here:
         
-       this.jTextArea1.setText(arbol.toString());
+       this.jTextArea1.setText(arbol2.toString());
         this.jTextArea2.setText(this.mostrar());
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
@@ -385,10 +385,12 @@ public class MAVL extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         if (arbolDeCero){
-            arbol = new ArbolBinarioBusqueda<>();
+          //  arbol = new AVL<>();
             arbolDeCero = false;
+           
         }
-        arbol.insertar(jTextField1.getText(),Integer.getInteger(jTextField2.getText()));
+        
+        arbol2.insertarRec(jTextField1.getText(),Integer.getInteger(jTextField2.getText()));
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -408,6 +410,7 @@ public class MAVL extends javax.swing.JInternalFrame {
             jLabel7.setText("TRUE");
         }else{
             jLabel7.setText("FALSE");
+            
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 

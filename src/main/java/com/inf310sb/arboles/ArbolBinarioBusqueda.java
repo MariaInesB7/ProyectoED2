@@ -302,6 +302,49 @@ public class ArbolBinarioBusqueda<K extends Comparable<K>, V> implements
     }
 
     @Override
+     public void insertarRec(K claveAInsertar, V valorAInsertar) {
+        if (claveAInsertar == null) {
+            throw new IllegalArgumentException("Clave no puede ser nula");
+        }
+        if (claveAInsertar == null) {
+            throw new IllegalArgumentException("Valor no puede ser nulo");
+        }
+        if (this.esArbolVacio()){
+            NodoBinario<K,V> nuevoNodo= new NodoBinario<>();
+            nuevoNodo.setClave(claveAInsertar);
+            nuevoNodo.setValor(valorAInsertar);
+            this.raiz=nuevoNodo;
+        } else{
+            this.raiz = this.insertar(this.raiz,claveAInsertar,valorAInsertar);
+        }
+    }
+    
+    private NodoBinario<K,V> insertar(NodoBinario<K,V> nodoActual,K claveAInsertar, V valorAInsertar){
+        if (NodoBinario.esNodoVacio(nodoActual)){
+            NodoBinario<K,V> nuevoNodo = new NodoBinario<>(claveAInsertar,valorAInsertar);
+            return nuevoNodo;
+        }
+        K claveActual = nodoActual.getClave();
+        if (claveAInsertar.compareTo(claveActual) > 0 ){
+            NodoBinario<K,V> supuestoNuevoHDerecho = insertar(nodoActual.getHijoDerecho(),
+                                    claveAInsertar,valorAInsertar);
+            nodoActual.setHijoDerecho(supuestoNuevoHDerecho);
+            
+        }
+        if (claveAInsertar.compareTo(claveActual) < 0 ){
+            NodoBinario<K,V> supuestoNuevoHIzquierdo = insertar(nodoActual.getHijoIzquierdo(),
+                                    claveAInsertar,valorAInsertar);
+            nodoActual.setHijoIzquierdo(supuestoNuevoHIzquierdo);
+            
+           
+        }
+        
+        //SI LLEGA ACA sig qu ele nodo actual esta la calve a insertar
+        nodoActual.setValor(valorAInsertar);
+        return nodoActual;       
+    }
+    
+    //cambie a iterativo el nombre de insertar 
     public void insertar(K claveAInsertar, V valorAInsertar) {
         if (claveAInsertar == null) {
             throw new IllegalArgumentException("Clave no puede ser nula");

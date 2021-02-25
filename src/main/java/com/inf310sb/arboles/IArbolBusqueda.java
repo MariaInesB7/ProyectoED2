@@ -20,7 +20,9 @@ public interface IArbolBusqueda <K extends Comparable <K>, V>{
     K minimo();
     K maximo();
     void insertar(K clave, V valor);
+    void insertarRec(K clave, V valor);
     V eliminar(K clave);
+   
     boolean contiene(K clave);
     V buscar (K clave);
     List<K> recorridoEnInOrden();

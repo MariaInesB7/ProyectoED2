@@ -60,17 +60,20 @@ public class Practico_1 {
         arbolPrueba2.insertar(9, "MK");
         arbolPrueba2.insertar(8, "LP");
         arbolPrueba2.insertar(11, "VB");    
-        arbolAVLPrueba.insertar(7, "HM");
-        arbolAVLPrueba.insertar(5, "CK");
-        arbolAVLPrueba.insertar(3, "CP");
-        arbolAVLPrueba.insertar(1, "CA");
+        arbolAVLPrueba.insertar(3, "tres");
+        arbolAVLPrueba.insertar(2, "dos");
+        System.out.println("1. "+ arbolAVLPrueba.recorridoEnPreOrden()) ;
+        arbolAVLPrueba.insertar(1, "uno");
+        System.out.println("2."+ arbolAVLPrueba.recorridoEnPreOrden()) ;
+        
+ /*       arbolAVLPrueba.insertar(1, "CA");
         arbolAVLPrueba.insertar(2, "CF");
         arbolAVLPrueba.insertar(4, "CZ");
         arbolAVLPrueba.insertar(6, "FE");
         arbolAVLPrueba.insertar(10, "TA");
         arbolAVLPrueba.insertar(9, "MK");
         arbolAVLPrueba.insertar(8, "LP");
-        arbolAVLPrueba.insertar(11, "VB");
+        arbolAVLPrueba.insertar(11, "VB");*/
 //1. Implementar los métodos que no se implementaron en clases o que se implementaron a
 //medias de árboles binarios de búsqueda y AVL
 System.out.println("1. ARBOL 1 RECONSTRUIR EN LISTA POST ORDEN [2,1,4,3,6,5,8,9,11,10,7]");
