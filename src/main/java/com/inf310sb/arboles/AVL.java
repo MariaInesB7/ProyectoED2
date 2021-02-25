@@ -112,7 +112,7 @@ public class AVL <K extends Comparable<K>, V> extends ArbolBinarioBusqueda<K, V>
         return nodoRotaAIzquierda;
     }
    
-    public V eliminar(K claveAEliminar) {
+    public V eliminarR(K claveAEliminar) {
         if (claveAEliminar == null){
             throw new IllegalArgumentException("Clave a eliminar no puede ser nula");
         }

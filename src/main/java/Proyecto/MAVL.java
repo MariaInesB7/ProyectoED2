@@ -286,8 +286,8 @@ public class MAVL extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
      boolean arbolDeCero = true;
-    ArbolBinarioBusqueda<String, Integer> arbol= new AVL<>();
-    AVL<String, Integer> arbol2= new AVL<>();
+    
+    AVL<String, Integer> arbolAVL= new AVL<>();
     
     //listas en INORDEN
     List<String> listaKInOrden = new ArrayList<>(
@@ -311,17 +311,17 @@ public class MAVL extends javax.swing.JInternalFrame {
             Arrays.asList(10, 30, 40, 20, 60, 90, 80, 70, 50, 120, 110, 140, 130, 160, 190, 180, 170, 150, 100));
     
     private String mostrar(){
-        ArbolBinarioBusqueda<String,Integer> arbolBinario = (ArbolBinarioBusqueda<String,Integer>)arbol;
+     
         String cad = ""; 
         cad = "RECORRIDOS\n";
-        cad = cad + "Por Niveles" + arbol.recorridoPorNiveles() + "\n"; 
-        cad = cad + "Por InOrden " + arbolBinario.recorridoEnInOrdenRe() + "\n";
-        cad = cad + "Por PosOrden" + arbol.recorridoEnPostOrden() + "\n";
-        cad = cad + "Por PreOrden" +arbol.recorridoEnPreOrden() + "\n";
-        cad = cad + "Altura Arbol: " + arbol.altura() + "\n";
-        cad = cad + "Nivel Arbol : "+ arbol.nivel() + "\n";
-        cad = cad + "Max Arbol : "+ arbol.maximo() + "\n";
-        cad = cad + "Min Arbol : "+ arbol.minimo() + "\n";
+        cad = cad + "Por Niveles" + arbolAVL.recorridoPorNiveles() + "\n"; 
+        cad = cad + "Por InOrden " + arbolAVL.recorridoEnInOrdenRe() + "\n";
+        cad = cad + "Por PosOrden" + arbolAVL.recorridoEnPostOrden() + "\n";
+        cad = cad + "Por PreOrden" +arbolAVL.recorridoEnPreOrden() + "\n";
+        cad = cad + "Altura Arbol: " + arbolAVL.altura() + "\n";
+        cad = cad + "Nivel Arbol : "+ arbolAVL.nivel() + "\n";
+        cad = cad + "Max Arbol : "+ arbolAVL.maximo() + "\n";
+        cad = cad + "Min Arbol : "+ arbolAVL.minimo() + "\n";
         return cad;
     }
     //Leer archivo y armar el arbol
@@ -334,7 +334,7 @@ public class MAVL extends javax.swing.JInternalFrame {
             while (input.hasNextLine()) {
                 String line = input.nextLine();
                texto= texto + line + "\n";
-             //  insertarTodo(line);
+              insertarTodo(line);
                // texto= texto + line + "\n";
             }
             input.close();
@@ -354,7 +354,7 @@ public class MAVL extends javax.swing.JInternalFrame {
         String p= String.valueOf(linea.length());
         jTextArea2.setText(p);
        
-       arbol.insertar(clave, Integer.parseInt(valor));
+       arbolAVL.insertar(clave, Integer.parseInt(valor));
        
     }
      
@@ -365,14 +365,14 @@ public class MAVL extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        //PREORDEN
-         arbol = new ArbolBinarioBusqueda<>(listaKInOrden,listaVInOrden,listaKPreOrden,listaVPreOrden,true);
+      //  arbolAVL = new ArbolBinarioBusqueda<>(listaKInOrden,listaVInOrden,listaKPreOrden,listaVPreOrden,true);
         arbolDeCero = false;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
             // TODO add your handling code here:
         
-       this.jTextArea1.setText(arbol2.toString());
+       this.jTextArea1.setText(arbolAVL.toString());
         this.jTextArea2.setText(this.mostrar());
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
@@ -390,23 +390,24 @@ public class MAVL extends javax.swing.JInternalFrame {
            
         }
         
-        arbol2.insertarRec(jTextField1.getText(),Integer.getInteger(jTextField2.getText()));
+       arbolAVL.insertarRec(jTextField1.getText(),Integer.getInteger(jTextField2.getText()));
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        arbol.eliminar(jTextField1.getText());
+        arbolAVL.eliminarR(jTextField1.getText());
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // PostOrden
-        arbol = new ArbolBinarioBusqueda<>(listaKInOrden,listaVInOrden,listaKPostOrden,listaVPostOrden,false);
+       // arbolAVL = new ArbolBinarioBusqueda<>(listaKInOrden,listaVInOrden,listaKPostOrden,listaVPostOrden,false);
         arbolDeCero = false;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-           if (arbol.contiene(jTextField1.getText())){
+           if (arbolAVL.contiene(jTextField1.getText())){
             jLabel7.setText("TRUE");
         }else{
             jLabel7.setText("FALSE");
